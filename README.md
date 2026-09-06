@@ -14,7 +14,7 @@
 
 <br/>
 
-[📥 Скачать APK (v1.0.0 Beta)](https://github.com/forsakenqwx/ender-trails-mobile/releases) • [🌐 Официальный сайт](https://endertrails.online) • [🤖 Telegram Бот](https://t.me/EnderTrailsVPN_bot)
+[📥 Скачать APK (v1.0.0 Beta)](https://github.com/forsakenqwx/ender-trails-mobile/releases) • [🤖 Telegram Бот](https://t.me/EnderTrailsVPN_bot)
 
 </div>
 
@@ -82,44 +82,6 @@
 - **Безопасное хранилище:** `flutter_secure_storage` (Android KeyStore / AES-256)
 - **Навигация & Deep Links:** `go_router` + `app_links` (`endertrails://*`)
 - **Графика и Шейдеры:** Процедурный Canvas, CustomPainter, Skia Textures
-
----
-
-## 🚀 Сборка проекта
-
-### Требования
-- Flutter SDK `>=3.29.0`
-- Android SDK (API 34, NDK 26+)
-- Java JDK 17 / 21
-
-### Шаги установки
-
-1. **Клонируйте репозиторий:**
-   ```bash
-   git clone https://github.com/forsakenqwx/ender-trails-mobile.git
-   cd ender-trails-mobile/app
-   ```
-
-2. **Установите зависимости:**
-   ```bash
-   flutter pub get
-   ```
-
-3. **Запустите генерацию кода (Freezed / JSON):**
-   ```bash
-   dart run build_runner build --delete-conflicting-outputs
-   ```
-
-4. **Запуск тестов:**
-   ```bash
-   flutter test
-   ```
-
-5. **Сборка релизного APK:**
-   ```bash
-   flutter build apk --release
-   ```
-   Готовый файл будет находиться по пути: `build/app/outputs/flutter-apk/app-release.apk`.
 
 ---
 
