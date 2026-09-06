@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ender Trails — мокап стиля</title>
+<style>
+@font-face {
+  font-family: 'PixCyrillic';
+  src: url('fonts/PixCyrillic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root{
+  --void:#0E0E12;
+  --deepslate:#1B1B22;
+  --stone:#2A2A33;
+  --stoneLight:#3D3D49;
+  --stoneDark:#14141A;
+  --ink:#000;
+  --text:#E6E6E6;
+  --dim:#9A9AA6;
+  --grass:#5FD35F;
+  --grassDark:#3D8F3D;
+  --gold:#F7C13B;
+  --redstone:#C6463B;
+  --diamond:#4BD6D6;
+  --ender:#7C5CFF;
+  --pearl:#17A398;
+  --lapis:#3B5BDB;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--void);
+  background-image:
+    linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
+  background-size:8px 8px;
+  color:var(--text);
+  font-family:'PixCyrillic',monospace;
+  padding:32px 24px 64px;
+  letter-spacing:1px;
+}
+
+/* ---------- page furniture ---------- */
+header{max-width:1200px;margin:0 auto 32px}
+h1{font-size:24px;line-height:1.6}
+h1 .ender{color:var(--ender)}
+.sub{font-family:system-ui,sans-serif;font-size:13px;color:var(--dim);letter-spacing:0;margin-top:8px;line-height:1.6}
+
+.screens{
+  max-width:1200px;margin:0 auto;
+  display:flex;gap:32px;flex-wrap:wrap;align-items:flex-start;
+}
+figure{width:280px}
+figcaption{
+  font-size:12px;color:var(--dim);text-align:center;margin-top:12px;line-height:1.8;
+}
+
+/* ---------- phone ---------- */
+.phone{
+  width:280px;height:580px;
+  background:var(--void);
+  border:3px solid var(--ink);
+  box-shadow:6px 6px 0 rgba(0,0,0,.6);
+  display:flex;flex-direction:column;
+  overflow:hidden;
+}
+.appbar{
+  background:var(--deepslate);
+  border-bottom:3px solid var(--ink);
+  padding:12px 12px;
+  display:flex;align-items:center;justify-content:space-between;
+  font-size:12px;
+}
+.appbar .logo{color:var(--ender)}
+.appbar .logo b{color:var(--text)}
+.gear{
+  width:20px;height:20px;background:var(--stone);
+  border:2px solid var(--ink);
+  box-shadow:inset 2px 2px 0 rgba(255,255,255,.14), inset -2px -2px 0 rgba(0,0,0,.5);
+}
+.body{flex:1;padding:16px;display:flex;flex-direction:column;gap:12px}
+
+/* ---------- block / bevel ---------- */
+.block{
+  background:var(--stone);
+  border:3px solid var(--ink);
+  box-shadow:
+    inset 3px 3px 0 rgba(255,255,255,.13),
+    inset -3px -3px 0 rgba(0,0,0,.5),
+    4px 4px 0 rgba(0,0,0,.55);
+}
+.block.dark{background:var(--deepslate)}
+
+/* ---------- lever ---------- */
+.lever-wrap{display:flex;justify-content:center;padding:4px 0 8px}
+.lever{
+  width:180px;height:180px;
+  background:var(--stone);
+  border:3px solid var(--ink);
+  box-shadow:
+    inset 4px 4px 0 rgba(255,255,255,.13),
+    inset -4px -4px 0 rgba(0,0,0,.5),
+    4px 4px 0 rgba(0,0,0,.55);
+  position:relative;
+  display:flex;align-items:center;justify-content:center;
+}
+.lever.off{background:var(--stone)}
+.lever.connecting{background:#4a4023;box-shadow:inset 4px 4px 0 rgba(255,255,255,.13),inset -4px -4px 0 rgba(0,0,0,.5),0 0 24px rgba(247,193,59,.35)}
+.lever.on{background:#253d25;box-shadow:inset 4px 4px 0 rgba(255,255,255,.13),inset -4px -4px 0 rgba(0,0,0,.5),0 0 28px rgba(95,211,95,.45)}
+.lever.error{background:#3d2320;box-shadow:inset 4px 4px 0 rgba(255,255,255,.13),inset -4px -4px 0 rgba(0,0,0,.5),0 0 24px rgba(198,70,59,.45)}
+
+/* lever base plate */
+.base{
+  position:absolute;bottom:34px;left:50%;transform:translateX(-50%);
+  width:64px;height:16px;background:var(--stoneLight);
+  border:3px solid var(--ink);
+}
+/* slot */
+.slot{
+  position:absolute;bottom:46px;left:50%;transform:translateX(-50%);
+  width:12px;height:84px;background:var(--stoneDark);
+  border:2px solid var(--ink);
+}
+/* handle */
+.handle{
+  position:absolute;left:50%;
+  width:44px;height:16px;background:var(--dim);
+  border:3px solid var(--ink);
+  transform:translateX(-50%);
+}
+.handle.down{bottom:52px;background:var(--stoneLight)}
+.handle.up{bottom:110px;background:var(--text)}
+.lever.on .handle,.lever.on .handle.up{background:var(--grass)}
+.lever.connecting .handle{background:var(--gold)}
+.lever.error .handle{background:var(--redstone)}
+.knob{
+  position:absolute;left:50%;width:20px;height:20px;
+  background:var(--ender);border:3px solid var(--ink);
+  transform:translateX(-50%);
+}
+.handle.up .knob{bottom:-10px}
+.handle.down .knob{bottom:-10px}
+
+/* ---------- status ---------- */
+.status{display:flex;align-items:center;justify-content:center;gap:8px;font-size:12px}
+.lamp{
+  width:16px;height:16px;background:var(--stoneDark);
+  border:2px solid var(--ink);position:relative;
+}
+.lamp i{position:absolute;inset:3px;display:block}
+.lamp.gray i{background:#7A7A85}
+.lamp.gold i{background:var(--gold);box-shadow:0 0 8px rgba(247,193,59,.8)}
+.lamp.green i{background:var(--grass);box-shadow:0 0 10px rgba(95,211,95,.9)}
+.lamp.red i{background:var(--redstone);box-shadow:0 0 10px rgba(198,70,59,.9)}
+
+.timer{text-align:center;font-size:24px;line-height:1.4}
+.timer.muted{color:var(--stoneLight)}
+
+/* ---------- xp bar ---------- */
+.kv{display:flex;justify-content:space-between;font-size:12px;color:var(--dim)}
+.panel{padding:12px;display:flex;flex-direction:column;gap:8px}
+.xp{
+  height:14px;background:var(--stoneDark);border:2px solid var(--ink);
+  padding:2px;display:flex;gap:2px;
+}
+.xp-seg{flex:1;background:var(--stoneLight)}
+.xp-seg.fill{background:var(--grass)}
+.xp-seg.warn{background:var(--gold)}
+.xp-seg.bad{background:var(--redstone)}
+
+/* ---------- server row ---------- */
+.srv{
+  display:flex;align-items:center;gap:8px;
+  padding:8px;background:var(--deepslate);
+  border:3px solid var(--ink);
+  box-shadow:inset 2px 2px 0 rgba(255,255,255,.10), inset -2px -2px 0 rgba(0,0,0,.45);
+}
+.srv.sel{border-color:var(--lapis);background:#23233a}
+.code{
+  width:38px;height:38px;flex:0 0 38px;
+  background:var(--stone);border:2px solid var(--ink);
+  display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--pearl);
+}
+.srv-info{flex:1;min-width:0}
+.srv-name{font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.srv-meta{font-size:12px;color:var(--dim);margin-top:4px}
+
+/* signal bars */
+.bars{display:flex;align-items:flex-end;gap:2px;height:20px}
+.bars i{width:5px;display:block;border:1px solid var(--ink)}
+.b1{height:5px}.b2{height:8px}.b3{height:11px}.b4{height:14px}.b5{height:17px}
+.good{background:var(--grass)}
+.mid{background:var(--gold)}
+.bad{background:var(--redstone)}
+.dead{background:var(--stoneLight)}
+.ms{font-size:12px;color:var(--dim);width:44px;text-align:right}
+
+/* ---------- misc ---------- */
+.btn{
+  padding:12px 16px;text-align:center;font-size:12px;
+  background:var(--stone);border:3px solid var(--ink);color:var(--text);
+  box-shadow:inset 3px 3px 0 rgba(255,255,255,.13), inset -3px -3px 0 rgba(0,0,0,.5), 4px 4px 0 rgba(0,0,0,.55);
+}
+.btn.ender{background:#332a63}
+.btn.ghost{background:var(--deepslate)}
+.hint{font-size:12px;color:var(--dim);text-align:center;line-height:1.8}
+
+/* ---------- palette ---------- */
+.palette{max-width:1200px;margin:48px auto 0;display:flex;gap:12px;flex-wrap:wrap}
+.sw{width:104px}
+.sw i{display:block;height:56px;border:3px solid var(--ink)}
+.sw span{display:block;font-size:12px;color:var(--dim);margin-top:6px;line-height:1.6}
+.legend{max-width:1200px;margin:48px auto 0;font-family:system-ui,sans-serif;font-size:13px;color:var(--dim);line-height:1.7}
+.legend code{color:var(--pearl)}
+</style>
+</head>
+<body>
+
+<header>
+  <h1><span class="ender">ENDER</span> TRAILS — <span style="color:var(--grass)">МОКАП СТИЛЯ</span></h1>
+  <p class="sub">
+    Пиксельный «майнкрафт»-стайл. Шрифт <b>PixCyrillic</b> (SIL OFL 1.1, полная кириллица).
+    Никаких ассетов Mojang — только своя стилизация: блоки, фаски, рычаг, редстоун-лампа,
+    шкала опыта. Слева направо: отключено → подключаемся → подключено → список серверов.
+  </p>
+</header>
+
+<section class="screens">
+
+  <!-- 1. OFF -->
+  <figure>
+    <div class="phone">
+      <div class="appbar"><span class="logo">⛏ <b>ENDER TRAILS</b></span><span class="gear"></span></div>
+      <div class="body">
+        <div class="lever-wrap">
+          <div class="lever off">
+            <div class="slot"></div>
+            <div class="handle down"><span class="knob"></span></div>
+            <div class="base"></div>
+          </div>
+        </div>
+        <div class="status"><span class="lamp gray"><i></i></span><span style="color:var(--dim)">ОТКЛЮЧЕНО</span></div>
+        <div class="timer muted">00:00:00</div>
+
+        <div class="srv">
+          <span class="code">NL</span>
+          <span class="srv-info">
+            <span class="srv-name">Нидерланды · AMS</span>
+            <span class="srv-meta">vless · авто</span>
+          </span>
+          <span class="bars">
+            <i class="b1 good"></i><i class="b2 good"></i><i class="b3 good"></i><i class="b4 good"></i><i class="b5 dead"></i>
+          </span>
+        </div>
+
+        <div class="block dark panel" style="margin-top:auto">
+          <div class="kv"><span>Трафик</span><span>12.4 / 100 ГБ</span></div>
+          <div class="xp">
+            <i class="xp-seg fill"></i><i class="xp-seg fill"></i><i class="xp-seg fill"></i>
+            <i class="xp-seg"></i><i class="xp-seg"></i><i class="xp-seg"></i><i class="xp-seg"></i>
+            <i class="xp-seg"></i><i class="xp-seg"></i><i class="xp-seg"></i><i class="xp-seg"></i>
+            <i class="xp-seg"></i><i class="xp-seg"></i><i class="xp-seg"></i><i class="xp-seg"></i>
+          </div>
+          <div class="kv"><span>Подписка</span><span style="color:var(--grass)">14 дней</span></div>
+        </div>
+        <div class="hint">Нажми рычаг, чтобы войти в Энд</div>
+      </div>
+    </div>
+    <figcaption>ОТКЛЮЧЕНО<br>рычаг вниз, лампа серая</figcaption>
+  </figure>
+
+  <!-- 2. CONNECTING -->
+  <figure>
+    <div class="phone">
+      <div class="appbar"><span class="logo">⛏ <b>ENDER TRAILS</b></span><span class="gear"></span></div>
+      <div class="body">
+        <div class="lever-wrap">
+          <div class="lever connecting">
+            <div class="slot"></div>
+            <div class="handle up"><span class="knob"></span></div>
+            <div class="base"></div>
+          </div>
+        </div>
+        <div class="status"><span class="lamp gold"><i></i></span><span style="color:var(--gold)">ПОДКЛЮЧАЕМСЯ…</span></div>
+        <div class="timer muted">00:00:02</div>
+
+        <div class="srv">
+          <span class="code">NL</span>
+          <span class="srv-info">
+            <span class="srv-name">Нидерланды · AMS</span>
+            <span class="srv-meta">vless · авто</span>
+          </span>
+          <span class="bars">
+            <i class="b1 good"></i><i class="b2 good"></i><i class="b3 good"></i><i class="b4 good"></i><i class="b5 dead"></i>
+          </span>
+        </div>
+
+        <div class="block dark panel" style="margin-top:auto">
+          <div class="kv"><span>Трафик</span><span>12.4 / 100 ГБ</span></div>
+          <div class="xp">
+            <i class="xp-seg fill"></i><i class="xp-seg fill"></i><i class="xp-seg fill"></i>
+            <i class="xp-seg"></i><i class="xp-seg"></i><i class="xp-seg"></i><i class="xp-seg"></i>
+            <i class="xp-seg"></i><i class="xp-seg"></i><i class="xp-seg"></i><i class="xp-seg"></i>
+            <i class="xp-seg"></i><i class="xp-seg"></i><i class="xp-seg"></i><i class="xp-seg"></i>
+          </div>
+          <div class="kv"><span>Подписка</span><span style="color:var(--grass)">14 дней</span></div>
+        </div>
+        <div class="btn ghost">ОТМЕНИТЬ</div>
+      </div>
+    </div>
+    <figcaption>ПОДКЛЮЧЕНИЕ<br>золото, рычаг вверх, лампа мигает</figcaption>
+  </figure>
+
+  <!-- 3. ON -->
+  <figure>
+    <div class="phone">
+      <div class="appbar"><span class="logo">⛏ <b>ENDER TRAILS</b></span><span class="gear"></span></div>
+      <div class="body">
+        <div class="lever-wrap">
+          <div class="lever on">
+            <div class="slot"></div>
+            <div class="handle up"><span class="knob"></span></div>
+            <div class="base"></div>
+          </div>
+        </div>
+        <div class="status"><span class="lamp green"><i></i></span><span style="color:var(--grass)">ПОДКЛЮЧЕНО</span></div>
+        <div class="timer" style="color:var(--grass)">00:42:17</div>
+
+        <div class="srv sel">
+          <span class="code">NL</span>
+          <span class="srv-info">
+            <span class="srv-name">Нидерланды · AMS</span>
+            <span class="srv-meta">vless · 42 мс</span>
+          </span>
+          <span class="bars">
+            <i class="b1 good"></i><i class="b2 good"></i><i class="b3 good"></i><i class="b4 good"></i><i class="b5 good"></i>
+          </span>
+        </div>
+
+        <div class="block dark panel" style="margin-top:auto">
+          <div class="kv"><span>Трафик</span><span>12.4 / 100 ГБ</span></div>
+          <div class="xp">
+            <i class="xp-seg fill"></i><i class="xp-seg fill"></i><i class="xp-seg fill"></i>
+            <i class="xp-seg"></i><i class="xp-seg"></i><i class="xp-seg"></i><i class="xp-seg"></i>
+            <i class="xp-seg"></i><i class="xp-seg"></i><i class="xp-seg"></i><i class="xp-seg"></i>
+            <i class="xp-seg"></i><i class="xp-seg"></i><i class="xp-seg"></i><i class="xp-seg"></i>
+          </div>
+          <div class="kv"><span>Подписка</span><span style="color:var(--grass)">14 дней</span></div>
+        </div>
+        <div class="btn ghost">↑ 1.2 МБ/с &nbsp; ↓ 8.4 МБ/с</div>
+      </div>
+    </div>
+    <figcaption>ПОДКЛЮЧЕНО<br>изумруд, свечение, таймер</figcaption>
+  </figure>
+
+  <!-- 4. SERVERS -->
+  <figure>
+    <div class="phone">
+      <div class="appbar"><span class="logo">◀ <b>СЕРВЕРЫ</b></span><span class="gear"></span></div>
+      <div class="body" style="gap:8px">
+
+        <div class="block dark panel" style="padding:8px 12px">
+          <div class="srv" style="background:var(--stone);border-width:2px;box-shadow:none">
+            <span class="code" style="color:var(--diamond)">АВ</span>
+            <span class="srv-info"><span class="srv-name">Автовыбор</span><span class="srv-meta">urltest · лучший пинг</span></span>
+            <span class="bars"><i class="b1 good"></i><i class="b2 good"></i><i class="b3 good"></i><i class="b4 good"></i><i class="b5 good"></i></span>
+          </div>
+        </div>
+
+        <div class="srv sel">
+          <span class="code">NL</span>
+          <span class="srv-info"><span class="srv-name">Нидерланды · AMS</span><span class="srv-meta">vless</span></span>
+          <span class="bars"><i class="b1 good"></i><i class="b2 good"></i><i class="b3 good"></i><i class="b4 good"></i><i class="b5 good"></i></span>
+          <span class="ms">42 мс</span>
+        </div>
+        <div class="srv">
+          <span class="code">DE</span>
+          <span class="srv-info"><span class="srv-name">Германия · FRA</span><span class="srv-meta">vless</span></span>
+          <span class="bars"><i class="b1 good"></i><i class="b2 good"></i><i class="b3 good"></i><i class="b4 good"></i><i class="b5 dead"></i></span>
+          <span class="ms">78 мс</span>
+        </div>
+        <div class="srv">
+          <span class="code">KZ</span>
+          <span class="srv-info"><span class="srv-name">Казахстан · ALA</span><span class="srv-meta">hysteria2</span></span>
+          <span class="bars"><i class="b1 mid"></i><i class="b2 mid"></i><i class="b3 mid"></i><i class="b4 dead"></i><i class="b5 dead"></i></span>
+          <span class="ms">164 мс</span>
+        </div>
+        <div class="srv">
+          <span class="code">TR</span>
+          <span class="srv-info"><span class="srv-name">Турция · IST</span><span class="srv-meta">vless</span></span>
+          <span class="bars"><i class="b1 mid"></i><i class="b2 mid"></i><i class="b3 dead"></i><i class="b4 dead"></i><i class="b5 dead"></i></span>
+          <span class="ms">289 мс</span>
+        </div>
+        <div class="srv">
+          <span class="code">US</span>
+          <span class="srv-info"><span class="srv-name">США · LAX</span><span class="srv-meta">tuic</span></span>
+          <span class="bars"><i class="b1 bad"></i><i class="b2 bad"></i><i class="b3 dead"></i><i class="b4 dead"></i><i class="b5 dead"></i></span>
+          <span class="ms">412 мс</span>
+        </div>
+        <div class="srv" style="opacity:.6">
+          <span class="code" style="color:var(--dim)">FI</span>
+          <span class="srv-info"><span class="srv-name" style="color:var(--dim)">Финляндия · HEL</span><span class="srv-meta">недоступен</span></span>
+          <span class="bars"><i class="b1 dead"></i><i class="b2 dead"></i><i class="b3 dead"></i><i class="b4 dead"></i><i class="b5 dead"></i></span>
+          <span class="ms">—</span>
+        </div>
+
+        <div class="hint" style="margin-top:auto">Пинг обновляется раз в 30 с</div>
+      </div>
+    </div>
+    <figcaption>СПИСОК СЕРВЕРОВ<br>полоски сигнала, код страны вместо флага</figcaption>
+  </figure>
+
+</section>
+
+<section class="palette">
+  <div class="sw"><i style="background:#0E0E12"></i><span>void<br>#0E0E12</span></div>
+  <div class="sw"><i style="background:#1B1B22"></i><span>deepslate<br>#1B1B22</span></div>
+  <div class="sw"><i style="background:#2A2A33"></i><span>stone<br>#2A2A33</span></div>
+  <div class="sw"><i style="background:#3D3D49"></i><span>фаска<br>#3D3D49</span></div>
+  <div class="sw"><i style="background:#5FD35F"></i><span>трава (on)<br>#5FD35F</span></div>
+  <div class="sw"><i style="background:#F7C13B"></i><span>золото<br>#F7C13B</span></div>
+  <div class="sw"><i style="background:#C6463B"></i><span>редстоун<br>#C6463B</span></div>
+  <div class="sw"><i style="background:#4BD6D6"></i><span>алмаз<br>#4BD6D6</span></div>
+  <div class="sw"><i style="background:#7C5CFF"></i><span>эндер<br>#7C5CFF</span></div>
+  <div class="sw"><i style="background:#17A398"></i><span>жемчуг<br>#17A398</span></div>
+  <div class="sw"><i style="background:#3B5BDB"></i><span>лазурит<br>#3B5BDB</span></div>
+</section>
+
+<p class="legend">
+  Метафоры: <code>LeverButton</code> — рычаг (щёлкает покадрово, без плавного easing) ·
+  <code>RedstoneLamp</code> — лампа статуса · <code>XpBar</code> — шкала опыта для трафика ·
+  <code>SignalBars</code> — уровень сигнала для пинга · <code>FurnaceLoader</code> — печь как загрузка ·
+  <code>StonePanel</code> — камень с фаской. Радиус скругления везде 0, Material Splash отключён,
+  отступы кратны 4. Флаги стран не рисуем — вместо них код страны в «табличке».
+</p>
+
+</body>
+</html>

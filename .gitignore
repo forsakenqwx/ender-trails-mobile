@@ -1,0 +1,25 @@
+﻿# APK & Build binaries (published to GitHub Releases)
+*.apk
+*.aab
+*.log
+*.tmp
+__pycache__/
+.DS_Store
+
+# Flutter / Dart
+app/build/
+app/.dart_tool/
+app/.flutter-plugins-dependencies
+app/.pub/
+app/.pub-cache/
+
+# Android Studio / IntelliJ / VS Code
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+
+# Python temporary files
+dev_server.py
+windows_protocol_handler.py

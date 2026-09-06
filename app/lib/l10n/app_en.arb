@@ -1,0 +1,64 @@
+{
+  "@@locale": "en",
+
+  "appTitle": "Ender Trails",
+  "@appTitle": {
+    "description": "Application name shown in the app bar"
+  },
+
+  "statusDisconnected": "Disconnected",
+  "@statusDisconnected": { "description": "VPN is off" },
+  "statusConnecting": "Connecting...",
+  "@statusConnecting": { "description": "VPN is establishing a tunnel" },
+  "statusConnected": "Connected",
+  "@statusConnected": { "description": "VPN tunnel is up" },
+  "statusReconnecting": "Reconnecting",
+  "@statusReconnecting": { "description": "Tunnel dropped, retrying" },
+  "statusError": "Error",
+  "@statusError": { "description": "Tunnel failed" },
+
+  "hintConnect": "Pull the lever to enter the End",
+  "@hintConnect": { "description": "Hint below the lever when disconnected" },
+  "hintConnected": "Tunnel is up, traffic is protected",
+  "@hintConnected": { "description": "Hint below the lever when connected" },
+  "hintConnecting": "Building the tunnel...",
+  "@hintConnecting": { "description": "Hint below the lever while connecting" },
+
+  "traffic": "Traffic",
+  "@traffic": { "description": "Label for used/available traffic" },
+  "trafficUnlimited": "Unlimited",
+  "@trafficUnlimited": { "description": "Shown when traffic is not limited" },
+
+  "subscription": "Subscription",
+  "@subscription": { "description": "Label for subscription expiry" },
+  "daysLeft": "{days} days left",
+  "@daysLeft": {
+    "description": "How many days are left on the subscription",
+    "placeholders": {
+      "days": { "type": "int", "example": "14" }
+    }
+  },
+  "subscriptionExpired": "Expired",
+  "@subscriptionExpired": { "description": "Subscription is over" },
+
+  "selectedServer": "Selected server",
+  "@selectedServer": { "description": "Label above the current server row" },
+
+  "servers": "Servers",
+  "@servers": { "description": "Servers screen title" },
+  "settings": "Settings",
+  "@settings": { "description": "Settings screen title" },
+
+  "pingUnknown": "no reply",
+  "@pingUnknown": { "description": "Server does not answer" },
+  "serverUnavailable": "unavailable",
+  "@serverUnavailable": { "description": "Server is down" },
+
+  "designSystem": "Design system",
+  "@designSystem": { "description": "Title of the component showcase screen" },
+
+  "uplink": "up",
+  "@uplink": { "description": "Short label for upload speed" },
+  "downlink": "down",
+  "@downlink": { "description": "Short label for download speed" }
+}

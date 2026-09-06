@@ -1,0 +1,35 @@
+{
+  "@@locale": "ru",
+
+  "appTitle": "Ender Trails",
+
+  "statusDisconnected": "Отключено",
+  "statusConnecting": "Подключаемся...",
+  "statusConnected": "Подключено",
+  "statusReconnecting": "Переподключение",
+  "statusError": "Ошибка",
+
+  "hintConnect": "Дёрни рычаг, чтобы войти в Энд",
+  "hintConnected": "Туннель поднят, трафик защищён",
+  "hintConnecting": "Строим туннель...",
+
+  "traffic": "Трафик",
+  "trafficUnlimited": "Безлимит",
+
+  "subscription": "Подписка",
+  "daysLeft": "Осталось {days} дн.",
+  "subscriptionExpired": "Истекла",
+
+  "selectedServer": "Выбранный сервер",
+
+  "servers": "Серверы",
+  "settings": "Настройки",
+
+  "pingUnknown": "нет ответа",
+  "serverUnavailable": "недоступен",
+
+  "designSystem": "Дизайн-система",
+
+  "uplink": "отдача",
+  "downlink": "загрузка"
+}
