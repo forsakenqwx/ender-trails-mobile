@@ -24,8 +24,8 @@ class AppConfig {
 
   static const String supportUsername = 'Yuvixshin';
 
-  static const String appVersion = '1.0.0 Beta';
-  static const int buildNumber = 1;
+  static const String appVersion = '1.0.1 Beta';
+  static const int buildNumber = 2;
 
   static bool get isDev => environment == 'dev';
   static bool get isProd => environment == 'prod';
