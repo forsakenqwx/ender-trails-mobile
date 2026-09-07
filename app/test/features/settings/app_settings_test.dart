@@ -11,8 +11,8 @@ void main() {
       expect(settings.bypassLan, isTrue);
       expect(settings.autoConnect, isFalse);
       expect(settings.dnsProvider, equals(DnsProvider.cloudflare));
-      expect(settings.splitTunnelingEnabled, isFalse);
-      expect(settings.bypassedPackages, isEmpty);
+      expect(settings.splitTunnelingEnabled, isTrue);
+      expect(settings.bypassedPackages, contains('ru.sberbankmobile'));
     });
 
     test('serializes and deserializes JSON cleanly', () {

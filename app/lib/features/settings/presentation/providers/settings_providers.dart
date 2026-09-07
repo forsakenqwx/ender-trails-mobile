@@ -65,7 +65,10 @@ class SettingsNotifier extends AsyncNotifier<AppSettings> {
 
   Future<void> setBypassedPackages(List<String> packages) async {
     final current = state.value ?? const AppSettings();
-    final updated = current.copyWith(bypassedPackages: packages);
+    final updated = current.copyWith(
+      bypassedPackages: packages,
+      splitTunnelingEnabled: packages.isNotEmpty ? true : current.splitTunnelingEnabled,
+    );
     state = AsyncValue.data(updated);
     await ref.read(settingsRepositoryProvider).saveSettings(updated);
   }

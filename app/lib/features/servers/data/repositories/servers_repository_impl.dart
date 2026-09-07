@@ -86,7 +86,7 @@ class ServersRepositoryImpl implements ServersRepository {
       if (out.tag.contains('Gemini ✨')) continue;
 
       final tagLower = out.tag.toLowerCase();
-      if (tagLower.contains('белых спис') ||
+      if (tagLower.contains('все сервера находятся') ||
           tagLower.contains('промокод') ||
           tagLower.contains('даже если') ||
           tagLower.contains('будет работать')) {

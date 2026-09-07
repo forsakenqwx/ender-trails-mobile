@@ -182,15 +182,15 @@ class VpnConnectionController extends Notifier<VpnConnectionState> {
       return false;
     }
 
-    // 3. Выбираем рабочий зарубежный сервер (фильтруем заглушки, промо-карточки и внутренние RU-мосты)
+    // 3. Выбираем рабочий сервер (фильтруем только информационные заглушки и внутренние RU-мосты)
     final validOutbounds = profile.outbounds.where((o) {
       if (o.server == '127.0.0.1' || o.server == 'localhost') return false;
       if (o.server == '31.76.240.210' || o.server == '2.26.124.209' || o.tag.contains('Gemini ✨')) return false;
       if (o.rawConfig['uuid'] == '00000000-0000-0000-0000-000000000000') return false;
       final tagLower = o.tag.toLowerCase();
-      if (tagLower.contains('lte') ||
-          tagLower.contains('запасной') ||
-          tagLower.contains('белых спис') ||
+      if (tagLower.contains('все сервера находятся') ||
+          tagLower.contains('даже если показывает') ||
+          tagLower.contains('будет работать') ||
           tagLower.contains('промокод') ||
           o.server == '31.129.42.172' ||
           o.server.contains('ru-bridge')) {
@@ -226,7 +226,9 @@ class VpnConnectionController extends Notifier<VpnConnectionState> {
             o.tag.contains('Швеция') ||
             o.tag.contains('Германия') ||
             o.tag.contains('Нидерланды') ||
-            o.tag.contains('Финляндия'),
+            o.tag.contains('Финляндия') ||
+            o.tag.contains('БЕЛЫЕ СПИСКИ') ||
+            o.tag.contains('БС'),
         orElse: () => candidateList.first,
       );
       selectedTag = preferred.tag;

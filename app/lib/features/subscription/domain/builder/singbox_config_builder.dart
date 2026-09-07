@@ -19,15 +19,16 @@ class SingboxConfigBuilder {
     bool splitTunnelingEnabled = false,
     List<String> bypassedPackages = const [],
   }) {
-    // Отфильтровываем заглушки, инфо-карточки и внутренние RU-мосты/бс
+    // Отфильтровываем только информационные заглушки и невалидные хосты
     final validOutbounds = outbounds.where((o) {
       if (o.server == '127.0.0.1' || o.server == 'localhost') return false;
       final raw = o.rawConfig;
       if (raw['uuid'] == '00000000-0000-0000-0000-000000000000') return false;
       final tagLower = o.tag.toLowerCase();
-      if (tagLower.contains('lte') ||
-          tagLower.contains('запасной') ||
-          tagLower.contains('белых спис') ||
+      // Отсекаем только текстовые карточки-инструкции
+      if (tagLower.contains('все сервера находятся') ||
+          tagLower.contains('даже если показывает') ||
+          tagLower.contains('будет работать') ||
           tagLower.contains('промокод') ||
           o.server == '31.129.42.172' ||
           o.server.contains('ru-bridge')) {
@@ -50,7 +51,9 @@ class SingboxConfigBuilder {
             o.tag.contains('Швеция') ||
             o.tag.contains('Германия') ||
             o.tag.contains('Нидерланды') ||
-            o.tag.contains('Финляндия'),
+            o.tag.contains('Финляндия') ||
+            o.tag.contains('БЕЛЫЕ СПИСКИ') ||
+            o.tag.contains('БС'),
         orElse: () => targetList.first,
       );
       defaultTag = preferred.tag;
@@ -58,6 +61,42 @@ class SingboxConfigBuilder {
 
     final isSystemDns = dnsProvider == DnsProvider.system;
     final remoteIp = dnsProvider.ip.isNotEmpty ? dnsProvider.ip : '1.1.1.1';
+
+    const ruDomainList = [
+      'duckdns.org',
+      'endertrails.online',
+      'flagman.click',
+      '.ru',
+      '.su',
+      '.рф',
+      '.xn--p1ai',
+      'ru',
+      'su',
+      'рф',
+      'xn--p1ai',
+      'vk.com',
+      'mail.ru',
+      'ok.ru',
+      'yandex.net',
+      'ya.ru',
+      'yandex.ru',
+      'kinopoisk.ru',
+      '2gis.ru',
+      'avito.ru',
+      'ozon.ru',
+      'wildberries.ru',
+      'wb.ru',
+      'tbank.ru',
+      'tinkoff.ru',
+      'sber.ru',
+      'sberbank.ru',
+      'vtb.ru',
+      'alfabank.ru',
+      'gosuslugi.ru',
+      'mos.ru',
+      'nalog.ru',
+      'rzd.ru',
+    ];
 
     final config = <String, dynamic>{
       'log': {
@@ -90,22 +129,13 @@ class SingboxConfigBuilder {
         ],
         'rules': [
           {'clash_mode': 'direct', 'server': 'local-dns'},
+          if (splitTunnelingEnabled && bypassedPackages.isNotEmpty)
+            {
+              'package_name': bypassedPackages,
+              'server': 'local-dns',
+            },
           {
-            'domain_suffix': [
-              'duckdns.org',
-              'endertrails.online',
-              'tbank.ru',
-              'tinkoff.ru',
-              'sber.ru',
-              'sberbank.ru',
-              'gosuslugi.ru',
-              'vk.com',
-              'yandex.ru',
-              'ya.ru',
-              'ru',
-              'su',
-              'рф',
-            ],
+            'domain_suffix': ruDomainList,
             'server': 'local-dns',
           },
         ],
@@ -163,18 +193,7 @@ class SingboxConfigBuilder {
           {'clash_mode': 'direct', 'outbound': 'direct'},
           {'clash_mode': 'global', 'outbound': 'proxy'},
           {
-            'domain_suffix': [
-              'duckdns.org',
-              'endertrails.online',
-              'tbank.ru',
-              'tinkoff.ru',
-              'sber.ru',
-              'sberbank.ru',
-              'gosuslugi.ru',
-              'vk.com',
-              'yandex.ru',
-              'ya.ru',
-            ],
+            'domain_suffix': ruDomainList,
             'outbound': 'direct',
           },
         ],

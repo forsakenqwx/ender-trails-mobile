@@ -122,6 +122,7 @@ class SingboxVpnEngine implements VpnEngine {
           config: session.configJson,
           networkMode: sb.NetworkMode.vpn,
           killSwitch: _killSwitch,
+          allowBypass: !_killSwitch,
           notification: sb.NotificationConfig(
             title: session.notificationTitle ?? 'Ender Trails',
             showTrafficStats: true,

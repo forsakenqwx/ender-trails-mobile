@@ -86,8 +86,54 @@ class _SplitTunnelingScreenState extends ConsumerState<SplitTunnelingScreen> {
                 app.packageName.toLowerCase().contains(_searchQuery);
           }).toList();
 
+          final isSplitEnabled = settings?.splitTunnelingEnabled ?? true;
+
           return Column(
             children: [
+              // 0. Главный переключатель раздельного туннелирования
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                decoration: const BoxDecoration(
+                  color: Color(0x1F000000),
+                  border: Border(
+                    bottom: BorderSide(color: Color(0x22FFFFFF), width: 1),
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    const Icon(Icons.alt_route_rounded, color: AppColors.mcGrass, size: 22),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'РАЗДЕЛЬНОЕ ТУННЕЛИРОВАНИЕ',
+                            style: AppTypography.title(Colors.white).copyWith(fontSize: 13),
+                          ),
+                          const SizedBox(height: 2),
+                          Text(
+                            isSplitEnabled
+                                ? 'Выбранные приложения работают в обход VPN'
+                                : 'Выключено (весь трафик идёт через VPN)',
+                            style: AppTypography.caption(
+                              isSplitEnabled ? AppColors.mcGrass : AppColors.mcTextDim,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    PixelSwitch(
+                      value: isSplitEnabled,
+                      onChanged: (val) async {
+                        HapticFeedback.lightImpact();
+                        await ref.read(settingsNotifierProvider.notifier).updateSplitTunneling(val);
+                      },
+                    ),
+                  ],
+                ),
+              ),
+
               // 1. Поисковая строка и быстрые действия
               Container(
                 padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),

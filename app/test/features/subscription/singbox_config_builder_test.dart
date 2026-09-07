@@ -131,5 +131,70 @@ void main() {
       expect(inbounds.length, 1);
       expect(inbounds[0]['tag'], 'custom-tun');
     });
+
+    test('buildFromOutbounds preserves whitelist and LTE backup nodes', () {
+      final outbounds = [
+        const OutboundRef(
+          tag: '🇪🇺 📍БЕЛЫЕ СПИСКИ 1🧿',
+          type: 'vless',
+          server: '144.31.215.7',
+          serverPort: 443,
+          rawConfig: {'type': 'vless', 'tag': '🇪🇺 📍БЕЛЫЕ СПИСКИ 1🧿'},
+        ),
+        const OutboundRef(
+          tag: 'LTE(бс) Запасной 1',
+          type: 'vless',
+          server: '144.31.215.7',
+          serverPort: 443,
+          rawConfig: {'type': 'vless', 'tag': 'LTE(бс) Запасной 1'},
+        ),
+        const OutboundRef(
+          tag: 'Все сервера находятся в белых списках',
+          type: 'freedom',
+          server: '127.0.0.1',
+          serverPort: 0,
+          rawConfig: {'type': 'freedom', 'tag': 'Все сервера находятся в белых списках'},
+        ),
+      ];
+
+      final jsonStr = builder.buildFromOutbounds(outbounds);
+      final map = jsonDecode(jsonStr) as Map<String, dynamic>;
+      final selector = (map['outbounds'] as List).firstWhere((o) => o['tag'] == 'proxy');
+      final proxyOutbounds = selector['outbounds'] as List;
+
+      expect(proxyOutbounds, contains('🇪🇺 📍БЕЛЫЕ СПИСКИ 1🧿'));
+      expect(proxyOutbounds, contains('LTE(бс) Запасной 1'));
+      expect(proxyOutbounds, isNot(contains('Все сервера находятся в белых списках')));
+    });
+
+    test('buildFromOutbounds configures split tunneling in tun, route, and dns', () {
+      final jsonStr = builder.buildFromOutbounds(
+        sampleOutbounds,
+        splitTunnelingEnabled: true,
+        bypassedPackages: ['ru.sberbankmobile'],
+      );
+
+      final map = jsonDecode(jsonStr) as Map<String, dynamic>;
+      final tun = (map['inbounds'] as List).first;
+      expect(tun['exclude_package'], contains('ru.sberbankmobile'));
+
+      final routeRules = map['route']['rules'] as List;
+      expect(
+        routeRules.any((r) =>
+            r['package_name'] != null &&
+            (r['package_name'] as List).contains('ru.sberbankmobile') &&
+            r['outbound'] == 'direct'),
+        isTrue,
+      );
+
+      final dnsRules = map['dns']['rules'] as List;
+      expect(
+        dnsRules.any((r) =>
+            r['package_name'] != null &&
+            (r['package_name'] as List).contains('ru.sberbankmobile') &&
+            r['server'] == 'local-dns'),
+        isTrue,
+      );
+    });
   });
 }

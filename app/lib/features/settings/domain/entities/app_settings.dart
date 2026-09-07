@@ -40,13 +40,30 @@ enum DnsProvider {
 
 /// Модель настроек приложения.
 class AppSettings {
+  static const defaultBypassPackages = <String>[
+    'ru.sberbankmobile',
+    'com.idamob.tinkoff.android',
+    'ru.alfabank.mobile.android',
+    'ru.vtb24.mobilebanking',
+    'ru.gosuslugi.layout',
+    'ru.yandex.searchplugin',
+    'ru.yandex.yandexmaps',
+    'ru.yandex.taxi',
+    'com.vkontakte.android',
+    'ru.wb.shop',
+    'ru.ozon.app.android',
+    'com.avito.android',
+    'ru.dublgis.dgismobile',
+    'ru.kinopoisk',
+  ];
+
   const AppSettings({
     this.killSwitch = false,
     this.bypassLan = true,
     this.autoConnect = false,
     this.dnsProvider = DnsProvider.cloudflare,
-    this.splitTunnelingEnabled = false,
-    this.bypassedPackages = const [],
+    this.splitTunnelingEnabled = true,
+    this.bypassedPackages = defaultBypassPackages,
   });
 
   final bool killSwitch;
@@ -96,8 +113,8 @@ class AppSettings {
       bypassLan: json['bypassLan'] as bool? ?? true,
       autoConnect: json['autoConnect'] as bool? ?? false,
       dnsProvider: dns,
-      splitTunnelingEnabled: json['splitTunnelingEnabled'] as bool? ?? false,
-      bypassedPackages: (json['bypassedPackages'] as List?)?.cast<String>() ?? const [],
+      splitTunnelingEnabled: json['splitTunnelingEnabled'] as bool? ?? true,
+      bypassedPackages: (json['bypassedPackages'] as List?)?.cast<String>() ?? defaultBypassPackages,
     );
   }
 }
